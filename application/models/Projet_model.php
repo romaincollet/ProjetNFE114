@@ -17,6 +17,13 @@ class Projet_model extends CI_Model {
 		}
 		return $projet;
 	}
+	public function search_projet($nomProjet)
+	{
+		
+		$projet = R::find( 'projet', ' nom LIKE :nomProjet ', [ ':nomProjet'=>'%'.$nomProjet.'%' ] );
+
+		return $projet;
+	}
 	
 	public function set_projet()
 	{

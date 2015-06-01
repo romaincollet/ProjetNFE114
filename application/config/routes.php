@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['login'] = 'login';
 $route['projet'] = 'projet';
 $route['projet/nouveau'] = 'projet/nouveau';
+$route['projet/recherche'] = 'projet/recherche';
 $route['projet/(:any)'] = 'projet/view/$1';
 $route['tache'] = 'tache';
 $route['tache/nouveau'] = 'tache/nouveau';

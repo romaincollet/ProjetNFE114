@@ -8,10 +8,20 @@ class Projet extends CI_Controller {
         }
 
 	public function index() {
-                $data['projets'] = $this->Projet_model->get_projet();
-        	$data['title'] = "Liste des projets";
 
-        	$this->load->view('projet/index', $data);
+                $data['projets'] = $this->Projet_model->get_projet();
+                $data['title'] = "Liste des projets";
+
+                $this->load->view('projet/index', $data);
+        
+        }
+
+        public function recherche() {
+
+                $data['projets'] = $this->Projet_model->search_projet($this->input->post('nomProjet'));
+                $data['title'] = "Liste des projets dont le nom contient : " . $this->input->post('nomProjet');
+
+                $this->load->view('projet/index', $data);
         }
 
         public function nouveau() {
