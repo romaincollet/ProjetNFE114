@@ -26,6 +26,28 @@ class Login extends CI_Controller {
 	{
 		$this->load->view('login');
 	}
+
+	public function authentification()
+	{
+		$this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Créer un nouveau projet';
+
+        $this->form_validation->set_rules('nomProjet', 'nom du projet', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->title = "Création d'un projet";
+            $this->load->view('login', $data);
+        }
+        else
+        {
+            $this->Projet_model->set_projet();
+            $data['projets'] = $this->Projet_model->get_projet();
+            $this->load->view('projet/index', $data);
+        }
+	}
 }
 
 /* End of file welcome.php */

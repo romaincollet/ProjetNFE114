@@ -19,6 +19,6 @@ $hook['display_override'][] = array('class'=>'Layout',
 
 $hook['post_controller_constructor'][] = array('class'=>'Auth',
                                     'function'=>'authenticate',
-                                    'filename'=>'Auth.php',
+                                    'filename'=>'AuthTest.php',
                                     'filepath'=>'hooks');
 
