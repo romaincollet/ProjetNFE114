@@ -16,6 +16,18 @@ class Projet extends CI_Controller {
         
     }
 
+    public function view($code = NULL)
+    {
+        $data['projet'] = $this->Projet_model->get_projet($code);
+        
+        if (empty($data['projet']))
+        {
+            show_404();
+        }
+
+        $this->load->view('projet/view', $data);
+    }
+
     public function recherche() {
 
         $data['projets'] = $this->Projet_model->search_projet($this->input->post('nomProjet'));
@@ -31,6 +43,7 @@ class Projet extends CI_Controller {
         $data['title'] = 'Créer un nouveau projet';
 
         $this->form_validation->set_rules('nomProjet', 'nom du projet', 'required');
+        $this->form_validation->set_rules('description', 'prénom', 'required');
 
         if ($this->form_validation->run() === FALSE)
         {
@@ -40,20 +53,35 @@ class Projet extends CI_Controller {
         else
         {
             $this->Projet_model->set_projet();
-            $data['projets'] = $this->Projet_model->get_projet();
-            $this->load->view('projet/index', $data);
+            redirect(site_url('projet'));
         }
     }
 
-    public function view($code = NULL)
-    {
-        $data['projet'] = $this->Projet_model->get_projet($code);
-        
-        if (empty($data['projet']))
-        {
-            show_404();
-        }
+    public function modifier($code) {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
 
-        $this->load->view('projet/view', $data);
+        $data['title'] = 'Modifier un projet';
+        $projet = $this->Projet_model->get_projet($code);
+        $data['projet'] = $projet;
+
+        $this->form_validation->set_rules('nom', 'nom', 'required');
+        $this->form_validation->set_rules('description', 'prénom', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->title = "Modifier d'une projet";
+            $this->load->view('projet/modifier', $data);
+        }
+        else
+        {
+            $this->Projet_model->update_projet($projet);
+            redirect(site_url('projet'));
+        }
+    }
+
+    public function supprimer($code) {
+        $this->Projet_model->delete_projet($code);
+        redirect(site_url('projet'));
     }
 }

@@ -7,9 +7,10 @@
   		<h1>Application de gestion de projet</h1>
 	  		<ul>
 	  			<li><a href="<?php echo site_url('projet'); ?>">Projets</a></li>
+	  			<li><a href="<?php echo site_url('projet/nouveau'); ?>">Nouveau projet</a></li>
 	  			<li><a href="<?php echo site_url('tache'); ?>">Afficher les taches</a></li>
 	  			<li><a href="<?php echo site_url('tache/nouveau'); ?>">Créer une tache</a></li>
-	  			<li><a href="<?php echo site_url('projet/nouveau'); ?>">Nouveau projet</a></li>
+	  			<li><a href="<?php echo site_url('personne'); ?>">Afficher les personnes</a></li>
 	  		</ul>
   	</div>
   	<div>
@@ -18,6 +19,15 @@
 		    <input type="input" name="nomProjet" />
 
 		    <input type="submit" name="submit" value="Rechercher un projet" />
+
+		</form>
+	</div>
+	<div>
+	  		<?php echo form_open('personne/recherche') ?>
+		    <label for="nomPersonne">Nom de la personne</label>
+		    <input type="input" name="nomPersonne" />
+
+		    <input type="submit" name="submit" value="Rechercher une personne" />
 
 		</form>
 	</div>

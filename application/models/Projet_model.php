@@ -35,7 +35,23 @@ class Projet_model extends CI_Model {
 
 		$projet->nom = $this->input->post('nomProjet');
 		$projet->code = $code;
+		$projet->description = $this->input->post('description');
 
 		$id = R::store( $projet );
+	}
+
+	public function update_projet($projet) {
+		$code = url_title($this->input->post('nom'), 'dash', TRUE);
+
+		$projet->nom = $this->input->post('nom');
+		$projet->code = $code;
+		$projet->description = $this->input->post('description');
+
+		R::store($projet);
+	}
+	public function delete_projet($code) {
+
+		$projet = $this->get_projet($code);
+		R::trash($projet);
 	}
 }
