@@ -6,6 +6,6 @@
         <div class="main">
                 <?php echo $tache->description ?>
         </div>
-        <p><a href="tache/<?php echo $tache->code ?>">Voir la tache</a></p>
+        <p><a href="tache/<?php echo $tache->id ?>">Voir la tache</a></p>
 
 <?php endforeach ?>

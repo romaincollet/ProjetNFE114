@@ -9,13 +9,6 @@
     <label for="prenom">Prénom</label>
     <input type="input" name="prenom" /><br/>
 
-	<label for="login">Login</label>
-    <input type="input" name="login" />
-
-	<label for="motdepasse">Mot de passe</label>
-    <input type="input" name="motdepasse" /><br/>
-
-
     <input type="submit" name="submit" value="Créer la personne" />
 
 </form>

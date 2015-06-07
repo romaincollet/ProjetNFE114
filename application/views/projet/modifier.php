@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('projet/modifier/'.$projet->code) ?>
+<?php echo form_open('projet/modifier/'.$projet->id) ?>
     <label for="nom">Nom</label>
     <input type="input" name="nom" value="<?php echo $projet->nom; ?>"/>
 

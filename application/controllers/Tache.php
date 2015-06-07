@@ -14,13 +14,25 @@ class Tache extends CI_Controller {
 		$this->load->view('tache/index', $data);
 	}
 
+	public function view($id = NULL)
+	{
+		$data['tache'] = $this->Tache_model->get_tache($id);
+
+		if (empty($data['tache']))
+		{
+			show_404();
+		}
+
+		$this->load->view('tache/view', $data);
+	}
+
 	public function nouveau() {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Créer une nouvelle tache';
 
-		$this->form_validation->set_rules('nomTache', 'nom de la tache', 'required');
+		$this->form_validation->set_rules('nom', 'nom de la tache', 'required');
 
 		if ($this->form_validation->run() === FALSE)
 		{
@@ -34,28 +46,16 @@ class Tache extends CI_Controller {
 		}
 	}
 
-	public function view($code = NULL)
-	{
-		$data['tache'] = $this->Tache_model->get_tache($code);
-
-		if (empty($data['tache']))
-		{
-			show_404();
-		}
-
-		$this->load->view('tache/view', $data);
-	}
-
-	public function modifier($code) {
+	public function modifier($id) {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
 		$data['title'] = 'Modifier un tache';
-		$tache = $this->Tache_model->get_tache($code);
+		$tache = $this->Tache_model->get_tache($id);
 		$data['tache'] = $tache;
 
 		$this->form_validation->set_rules('nom', 'nom', 'required');
-		$this->form_validation->set_rules('description', 'prénom', 'required');
+		$this->form_validation->set_rules('description', 'description', 'required');
 
 		if ($this->form_validation->run() === FALSE)
 		{
@@ -69,8 +69,8 @@ class Tache extends CI_Controller {
 		}
 	}
 
-	public function supprimer($code) {
-		$this->Tache_model->delete_tache($code);
+	public function supprimer($id) {
+		$this->Tache_model->delete_tache($id);
 		redirect(site_url('tache'));
 	}
 }

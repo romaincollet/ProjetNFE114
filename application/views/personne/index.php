@@ -3,9 +3,7 @@
 <?php foreach ($personnes as $personne): ?>
 
         <h3><?php echo $personne->prenom . ' ' . $personne->nom ?></h3>
-        <div class="main">
-                <p>Login : <?php echo $personne->login ?></p>
-        </div>
-        <p><a href="personne/<?php echo $personne->login ?>">Voir la personne</a></p>
+        
+        <p><a href="personne/<?php echo $personne->id ?>">Voir la personne</a></p>
 
 <?php endforeach ?>

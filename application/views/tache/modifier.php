@@ -2,7 +2,7 @@
 
 <?php echo validation_errors(); ?>
 
-<?php echo form_open('tache/modifier/'.$tache->code) ?>
+<?php echo form_open('tache/modifier/'.$tache->id) ?>
     <label for="nom">Nom</label>
     <input type="input" name="nom" value="<?php echo $tache->nom; ?>"/>
 

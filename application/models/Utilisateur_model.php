@@ -1,5 +1,5 @@
 <?php
-class Personne_model extends CI_Model {
+class Utilisateur_model extends CI_Model {
 
 	public function __construct() {
 
@@ -12,7 +12,7 @@ class Personne_model extends CI_Model {
 			$personne = R::findAll( 'personne' ); 
 		}
 		else {
-			$personne = R::load( 'personne', $id );
+			$personne = R::findOne( 'personne', ' id = :id ', [ ':id'=>$id ] );
 		}
 		return $personne;
 	}
@@ -31,6 +31,10 @@ class Personne_model extends CI_Model {
 		$personne->nom = $this->input->post('nom');
 		$personne->prenom = $this->input->post('prenom');
 
+		$motdepasse = $this->input->post('motdepasse');
+		$hash = password_hash($motdepasse,PASSWORD_BCRYPT);
+		$personne->motdepasse = $hash;
+
 		$id = R::store($personne);
 	}
 
@@ -38,6 +42,12 @@ class Personne_model extends CI_Model {
 
 		$personne->nom = $this->input->post('nom');
 		$personne->prenom = $this->input->post('prenom');
+		$personne->id = $this->input->post('id');
+		if ($this->input->post('motdepasse') !== ""){
+			$motdepasse = $this->input->post('motdepasse');
+			$hash = password_hash($motdepasse,PASSWORD_BCRYPT);
+			$personne->motdepasse = $hash;
+		}
 		R::store($personne);
 	}
 	public function delete_personne($id) {

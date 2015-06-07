@@ -1,5 +1,5 @@
 <?php
-class Personne extends CI_Controller {
+class Utilisateur extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -14,9 +14,9 @@ class Personne extends CI_Controller {
         
     }
 
-    public function view($id = NULL)
+    public function view($login = NULL)
     {
-        $data['personne'] = $this->Personne_model->get_personne($id);
+        $data['personne'] = $this->Personne_model->get_personne($login);
         
         if (empty($data['personne']))
         {
@@ -42,6 +42,8 @@ class Personne extends CI_Controller {
 
         $this->form_validation->set_rules('nom', 'nom', 'required');
         $this->form_validation->set_rules('prenom', 'prénom', 'required');
+        $this->form_validation->set_rules('login', 'login', 'required');
+        $this->form_validation->set_rules('motdepasse', 'mot de passe', 'required');
 
         if ($this->form_validation->run() === FALSE)
         {
@@ -55,16 +57,17 @@ class Personne extends CI_Controller {
         }
     }
 
-    public function modifier($id) {
+    public function modifier($login) {
     	$this->load->helper('form');
         $this->load->library('form_validation');
 
         $data['title'] = 'Modifier une personne';
-        $personne = $this->Personne_model->get_personne($id);
+        $personne = $this->Personne_model->get_personne($login);
         $data['personne'] = $personne;
 
         $this->form_validation->set_rules('nom', 'nom', 'required');
         $this->form_validation->set_rules('prenom', 'prénom', 'required');
+        $this->form_validation->set_rules('login', 'login', 'required');
 
         if ($this->form_validation->run() === FALSE)
         {
@@ -78,8 +81,8 @@ class Personne extends CI_Controller {
         }
     }
 
-    public function supprimer($id) {
-    	$this->Personne_model->delete_personne($id);
+    public function supprimer($login) {
+    	$this->Personne_model->delete_personne($login);
         redirect(site_url('personne'));
     }
 }

@@ -6,6 +6,7 @@
         <div class="main">
                 <?php echo $projet->description ?>
         </div>
-        <p><a href="projet/<?php echo $projet->code ?>">Voir le projet</a></p>
+        <p><a href="projet/<?php echo $projet->id ?>">Voir le projet</a></p>
+        
 
 <?php endforeach ?>

@@ -1,5 +1,4 @@
 <?php
-echo '<h2>'.$personne->prenom.' ' .$personne->nom. '</h2>';
-echo '<p> Login : '.$personne->login.'</p>'; ?>
-<p><a href="modifier/<?php echo $personne->login ?>">Modifier</a></p>
-<p><a href="supprimer/<?php echo $personne->login ?>">Supprimer</a></p>
+echo '<h2>'.$personne->prenom.' ' .$personne->nom. '</h2>'; ?>
+<p><a href="modifier/<?php echo $personne->id ?>">Modifier</a></p>
+<p><a href="supprimer/<?php echo $personne->id ?>">Supprimer</a></p>

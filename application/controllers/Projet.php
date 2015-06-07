@@ -16,9 +16,9 @@ class Projet extends CI_Controller {
         
     }
 
-    public function view($code = NULL)
+    public function view($id = NULL)
     {
-        $data['projet'] = $this->Projet_model->get_projet($code);
+        $data['projet'] = $this->Projet_model->get_projet($id);
         
         if (empty($data['projet']))
         {
@@ -57,12 +57,12 @@ class Projet extends CI_Controller {
         }
     }
 
-    public function modifier($code) {
+    public function modifier($id) {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
         $data['title'] = 'Modifier un projet';
-        $projet = $this->Projet_model->get_projet($code);
+        $projet = $this->Projet_model->get_projet($id);
         $data['projet'] = $projet;
 
         $this->form_validation->set_rules('nom', 'nom', 'required');
@@ -80,8 +80,34 @@ class Projet extends CI_Controller {
         }
     }
 
-    public function supprimer($code) {
-        $this->Projet_model->delete_projet($code);
+    public function supprimer($id) {
+        $this->Projet_model->delete_projet($id);
         redirect(site_url('projet'));
+    }
+
+    public function ajouterTache($id) {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+        $this->load->model('Tache_model');
+
+        $data['title'] = 'Ajouter une tache à un projet';
+        $taches = $this->Tache_model->get_tache();
+        $data['taches'] = $taches;
+        
+
+        $this->form_validation->set_rules('nom', 'nom', 'required');
+        $this->form_validation->set_rules('description', 'prénom', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->title = "Modifier d'une projet";
+            $this->load->view('projet/ajouterTache', $data);
+        }
+        else
+        {
+            $projet = $this->Projet_model->get_projet($id);
+            $this->Projet_model->update_projet($projet);
+            redirect(site_url('projet'));
+        }
     }
 }
