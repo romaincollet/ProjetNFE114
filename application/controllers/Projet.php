@@ -171,6 +171,26 @@ class Projet extends CI_Controller {
 
     public function affecterEquipier($id) {
 
-        
+        $this->load->library('form_validation');
+
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
+
+        $data['title'] = 'Affecter un équipier à une tache';
+        $data['equipiers'] = $projet->ownPersonneList;
+        $data['taches'] = $projet->ownTacheList;
+
+        $this->form_validation->set_rules('equipier', 'equipier', 'required');
+        $this->form_validation->set_rules('tache', 'tache', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('projet/affecterEquipier', $data);
+        }
+        else
+        {
+            $this->Projet_model->affecter_equipier($projet);
+            redirect(site_url('projet'));
+        }
     }
 }

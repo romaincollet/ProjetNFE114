@@ -11,6 +11,7 @@ $route['projet/supprimer/(:any)'] = 'projet/supprimer/$1';
 $route['projet/listeTache'] = 'projet/listeTache';
 $route['projet/ajouterTache'] = 'projet/ajouterTache';
 $route['projet/retirerTache'] = 'projet/retirerTache';
+$route['projet/affecterEquipier'] = 'projet/affecterEquipier';
 $route['projet/listeEquipier'] = 'projet/listeEquipier';
 $route['projet/ajouterEquipier'] = 'projet/ajouterEquipier';
 $route['projet/retirerEquipier'] = 'projet/retirerEquipier';

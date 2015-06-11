@@ -76,9 +76,16 @@ class Projet_model extends CI_Model {
 		R::store($personne);
 	}
 
-	public function affecter_equipier($projet, $equipier){
-		$affectation->projet = $projet;
-        $affectation->equipier = $equipier;
-        R::store($affectation);
+	public function affecter_equipier($projet){
+
+		$equipier = $projet->ownPersonneList[$this->input->post('equipier')];
+		$tache = $projet->ownTacheList[$this->input->post('tache')];
+
+		//$affectation = R::Dispense('affectation');
+		//$affectation->role = "Développeur";
+
+		$equipier->sharedAffectationList[] = $tache;
+		$tache->sharedAffectationList[] = $equipier;
+        R::storeAll([$equipier,$tache]);
 	}
 }
