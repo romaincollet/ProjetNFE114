@@ -110,4 +110,45 @@ class Projet extends CI_Controller {
             redirect(site_url('projet'));
         }
     }
+
+    public function listeEquipier($id) {
+
+        $data['title'] = 'Liste des équipiers';
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
+        
+        $equipiers = $projet->ownPersonneList;
+        $data['equipiers'] = $equipiers;
+
+        $this->load->view('projet/listeEquipier', $data);
+    }
+
+    public function ajouterEquipier($id) {
+        $this->load->library('form_validation');
+        $this->load->model('Personne_model');
+
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
+
+        $data['title'] = 'Liste des équipiers';
+        $personnes = $this->Personne_model->get_personne();
+        $data['personnes'] = $personnes;
+
+        $this->form_validation->set_rules('equipier', 'equipier', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('projet/ajouterEquipier', $data);
+        }
+        else
+        {
+            $this->Projet_model->ajouter_equipier($projet);
+            redirect(site_url('projet'));
+        }
+    }
+
+    public function retirerEquipier($id) {
+        $this->Projet_model->retirer_equipier($id);
+        redirect(site_url('projet'));
+    }
 }

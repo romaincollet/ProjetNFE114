@@ -47,7 +47,26 @@ class Projet_model extends CI_Model {
 		R::trash($projet);
 	}
 
-	public function ajouterTache() {
+	public function ajouter_tache($projet) {
 
+		
+	}
+
+	public function retirer_tache() {
+
+	}
+
+	public function ajouter_equipier($projet) {
+		$idPersonne = $this->input->post('equipier');
+		$personne = R::load('personne', $idPersonne);
+		$projet->ownPersonneList[] = $personne;
+		R::store($projet);
+	}
+
+	public function retirer_equipier($idPersonne) {
+
+		$personne = R::load('personne', $idPersonne);
+		$personne->projet = NULL;
+		R::store($personne);
 	}
 }

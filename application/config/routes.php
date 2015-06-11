@@ -9,6 +9,9 @@ $route['projet/recherche'] = 'projet/recherche';
 $route['projet/modifier'] = 'projet/modifier';
 $route['projet/supprimer/(:any)'] = 'projet/supprimer/$1';
 $route['projet/ajouterTache'] = 'projet/ajouterTache';
+$route['projet/ajouterEquipier'] = 'projet/ajouterEquipier';
+$route['projet/retirerEquipier'] = 'projet/retirerEquipier';
+$route['projet/listeEquipier'] = 'projet/listeEquipier';
 $route['projet/(:any)'] = 'projet/view/$1';
 
 $route['tache'] = 'tache';
