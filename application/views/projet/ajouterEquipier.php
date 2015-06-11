@@ -2,8 +2,8 @@
 
 <?php echo validation_errors(); ?>
 
-<h3>Ajouter un équipiers</h3>
 <?php echo form_open('projet/ajouterEquipier/'.$projet->id) ?>
+<label for="equipier">Liste des équipiers</label>
 <select name="equipier">
 
 	<?php foreach ($personnes as $personne): ?>

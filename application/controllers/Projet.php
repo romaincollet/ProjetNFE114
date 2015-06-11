@@ -70,7 +70,7 @@ class Projet extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
-            $this->title = "Modifier d'une projet";
+            $this->title = "Modifier un projet";
             $this->load->view('projet/modifier', $data);
         }
         else
@@ -85,30 +85,47 @@ class Projet extends CI_Controller {
         redirect(site_url('projet'));
     }
 
+    public function listeTache($id) {
+
+        $data['title'] = 'Liste des taches';
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
+        
+        $taches = $projet->ownTacheList;
+        $data['taches'] = $taches;
+
+        $this->load->view('projet/listeTache', $data);
+    }
+
     public function ajouterTache($id) {
         $this->load->helper('form');
         $this->load->library('form_validation');
         $this->load->model('Tache_model');
 
-        $data['title'] = 'Ajouter une tache à un projet';
+        $data['title'] = 'Ajouter une tache au projet';
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
+
         $taches = $this->Tache_model->get_tache();
         $data['taches'] = $taches;
-        
-
-        $this->form_validation->set_rules('nom', 'nom', 'required');
-        $this->form_validation->set_rules('description', 'prénom', 'required');
+    
+        $this->form_validation->set_rules('tache', 'tache', 'required');
 
         if ($this->form_validation->run() === FALSE)
         {
-            $this->title = "Modifier d'une projet";
+            $this->title = "Ajouter une tache au projet";
             $this->load->view('projet/ajouterTache', $data);
         }
         else
         {
-            $projet = $this->Projet_model->get_projet($id);
-            $this->Projet_model->update_projet($projet);
+            $this->Projet_model->ajouter_tache($projet);
             redirect(site_url('projet'));
         }
+    }
+
+    public function retirerTache($id) {
+        $this->Projet_model->retirer_tache($id);
+        redirect(site_url('projet'));
     }
 
     public function listeEquipier($id) {
@@ -130,7 +147,7 @@ class Projet extends CI_Controller {
         $projet = $this->Projet_model->get_projet($id);
         $data['projet'] = $projet;
 
-        $data['title'] = 'Liste des équipiers';
+        $data['title'] = 'Ajouter un équipier';
         $personnes = $this->Personne_model->get_personne();
         $data['personnes'] = $personnes;
 
@@ -150,5 +167,10 @@ class Projet extends CI_Controller {
     public function retirerEquipier($id) {
         $this->Projet_model->retirer_equipier($id);
         redirect(site_url('projet'));
+    }
+
+    public function affecterEquipier($id) {
+
+        
     }
 }

@@ -49,11 +49,17 @@ class Projet_model extends CI_Model {
 
 	public function ajouter_tache($projet) {
 
-		
+		$idTache = $this->input->post('tache');
+		$tache = R::load('tache', $idTache);
+		$projet->ownTacheList[] = $tache;
+		R::store($projet);
 	}
 
-	public function retirer_tache() {
+	public function retirer_tache($idTache) {
 
+		$tache = R::load('tache', $idTache);
+		$tache->projet = NULL;
+		R::store($tache);
 	}
 
 	public function ajouter_equipier($projet) {
@@ -68,5 +74,11 @@ class Projet_model extends CI_Model {
 		$personne = R::load('personne', $idPersonne);
 		$personne->projet = NULL;
 		R::store($personne);
+	}
+
+	public function affecter_equipier($projet, $equipier){
+		$affectation->projet = $projet;
+        $affectation->equipier = $equipier;
+        R::store($affectation);
 	}
 }
