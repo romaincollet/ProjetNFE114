@@ -13,3 +13,4 @@
 </select>
 <input type="submit" name="submit" value="Ajouter l'équipier" />
 <?php echo form_close(); ?>
+<p><a href="<?php echo site_url('projet/'.$projet->id) ?>">Retour</a></p>

@@ -12,3 +12,4 @@
     <input type="submit" name="submit" value="Valider les modifications" />
 
 </form>
+<p><a href="<?php echo site_url('projet/'.$projet->id) ?>">Retour</a></p>

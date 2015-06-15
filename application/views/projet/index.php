@@ -1,12 +1,10 @@
 <h2><?php echo $title ?></h2>
-
+<ul>
 <?php foreach ($projets as $projet): ?>
 
-        <h3><?php echo $projet->nom ?></h3>
-        <div class="main">
-                <?php echo $projet->description ?>
-        </div>
-        <p><a href="projet/<?php echo $projet->id ?>">Voir le projet</a></p>
+        <li><?php echo $projet->nom ?>  
+        <a href="projet/<?php echo $projet->id ?>">Détail</a></li>
         
 
 <?php endforeach ?>
+</ul>

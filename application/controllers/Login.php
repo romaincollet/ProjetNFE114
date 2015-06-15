@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Login extends CI_Controller {
-  
-  public function __construct() {
-    parent::__construct();
-    $this->authenticate = FALSE;
-  }
-  
+
+	public function __construct() {
+		parent::__construct();
+		$this->authenticate = FALSE;
+	}
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -24,13 +24,65 @@ class Login extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('login');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->load->library('session');
+
+		$this->form_validation->set_rules('login', 'login', 'required');
+		$this->form_validation->set_rules('password', 'mot de passe', 'required');
+
+		
+		if ($this->form_validation->run() === FALSE)
+		{
+			echo "etape 1";
+			$this->load->view('login');
+		}
+		elseif($this->verification()) 
+		{
+
+			$newdata = array(
+				'login'     => $this->input->post('login'),
+				'logged_in' => TRUE
+				);
+			$this->session->set_userdata($newdata);
+			redirect(site_url('projet'));
+			echo "etape 2";
+		}
+		else
+		{
+
+			redirect(site_url('login'));
+			echo "etape 3";
+		}
 	}
+
 	/*
 	public function logout(){
 		$this->authenticate = FALSE;
 		$this->CI->session->unset_userdata(array('login','logged_in'));
 		redirect(base_url().'index.php/login');
+
+
+		
 	}
 	*/
+	public function verification() {
+		$test = false;
+
+		$login = $this->input->post('login');
+		$password = $this->input->post('password');
+
+		$utilisateur = R::findOne( 'utilisateur', ' login = :login ', [ ':login'=>$login ] );
+		var_dump($utilisateur);
+		if ($login === $utilisateur->login && $utilisateur->password === $password){
+			$hash = password_hash($password,PASSWORD_BCRYPT);
+			$utilisateur->password = $hash;
+			R::store($utilisateur);
+			$test = true;
+		}
+		elseif ($login == $utilisateur->login && password_verify($password, $utilisateur->password)){
+			$test = true;
+		}
+		return $test;
+	}
 }

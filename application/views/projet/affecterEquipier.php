@@ -23,3 +23,4 @@
 <br/>
 <input type="submit" name="submit" value="Affecter l'équipier à la tache" />
 <?php echo form_close(); ?>
+<p><a href="<?php echo site_url('projet/'.$projet->id) ?>">Retour</a></p>

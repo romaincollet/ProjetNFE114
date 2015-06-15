@@ -1,11 +1,10 @@
 <h2><?php echo $title ?></h2>
-
+<a href="tache/nouveau">Créer une tache</a>
+<ul>
 <?php foreach ($taches as $tache): ?>
 
-        <h3><?php echo $tache->nom ?></h3>
-        <div class="main">
-                <?php echo $tache->description ?>
-        </div>
-        <p><a href="tache/<?php echo $tache->id ?>">Voir la tache</a></p>
+        <li><?php echo $tache->nom ?>  
+        <a href="tache/<?php echo $tache->id ?>">Détail</a></li>
 
 <?php endforeach ?>
+</ul>
