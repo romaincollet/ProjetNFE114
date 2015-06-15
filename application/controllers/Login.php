@@ -31,41 +31,37 @@ class Login extends CI_Controller {
 		$this->form_validation->set_rules('login', 'login', 'required');
 		$this->form_validation->set_rules('password', 'mot de passe', 'required');
 
-		
-		if ($this->form_validation->run() === FALSE)
+		if($this->session->logged_in === TRUE)
 		{
-			echo "etape 1";
+			redirect(site_url('projet'));
+		}
+		elseif ($this->form_validation->run() === FALSE)
+		{
 			$this->load->view('login');
 		}
 		elseif($this->verification()) 
 		{
-
 			$newdata = array(
 				'login'     => $this->input->post('login'),
 				'logged_in' => TRUE
 				);
 			$this->session->set_userdata($newdata);
 			redirect(site_url('projet'));
-			echo "etape 2";
 		}
 		else
 		{
-
 			redirect(site_url('login'));
-			echo "etape 3";
 		}
 	}
 
-	/*
+	
 	public function logout(){
+
 		$this->authenticate = FALSE;
-		$this->CI->session->unset_userdata(array('login','logged_in'));
+		$this->session->unset_userdata(array('login','logged_in'));
 		redirect(base_url().'index.php/login');
-
-
-		
 	}
-	*/
+	
 	public function verification() {
 		$test = false;
 

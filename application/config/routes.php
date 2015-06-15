@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['login'] = 'login';
+$route['login/logout'] = 'login/logout';
 
 $route['projet'] = 'projet';
 $route['projet/nouveau'] = 'projet/nouveau';
