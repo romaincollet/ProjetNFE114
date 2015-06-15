@@ -8,9 +8,11 @@
 
 	if ($this->session->logged_in === true): ?>
 	<div style="float:right;">
-		<a href="<?php echo site_url('login/logout'); ?>">Déconnexion</a>
+		<a href="<?php echo site_url('login/logout'); ?>">Déconnexion</a><br/>
+		<a href="<?php echo site_url('login/modifier/'. $this->session->login); ?>">Modifier le mot de passse</a>
 	</div>
 	<?php endif; ?>
+
 	<div style="text-align: left;">
 		<h1>Application de gestion de projet</h1>
 		<ul>

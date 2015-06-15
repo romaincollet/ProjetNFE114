@@ -5,54 +5,61 @@ class Utilisateur_model extends CI_Model {
 
 	}
 	
-	public function get_personne($id = FALSE) {
-		//Si aucun id n'est renseigné je récupère toutes les personnes
-		if ($id === FALSE)
+	public function get_utilisateur($login = FALSE) {
+		//Si aucun login n'est renseigné je récupère toutes les utilisateurs
+		if ($login === FALSE)
 		{
-			$personne = R::findAll( 'personne' ); 
+			$utilisateur = R::findAll( 'utilisateur' ); 
 		}
 		else {
-			$personne = R::findOne( 'personne', ' id = :id ', [ ':id'=>$id ] );
+			$utilisateur = R::findOne( 'utilisateur', ' login = :login ', [ ':login'=>$login ] );
 		}
-		return $personne;
+		return $utilisateur;
 	}
 
-	public function search_personne($nomPersonne) {
+	public function search_utilisateur($login) {
 		
-		$personne = R::find( 'personne', ' nom LIKE :nomPersonne ', [ ':nomPersonne'=>'%'.$nomPersonne.'%' ] );
+		$utilisateur = R::find( 'utilisateur', ' login LIKE :login ', [ ':login'=>'%'.$login.'%' ] );
 
-		return $personne;
+		return $utilisateur;
 	}
 	
-	public function set_personne() {
+	public function set_utilisateur() {
 
-		$personne = R::dispense('personne');
+		$utilisateur = R::dispense('utilisateur');
 
-		$personne->nom = $this->input->post('nom');
-		$personne->prenom = $this->input->post('prenom');
+		$utilisateur->login = $this->input->post('login');
 
-		$motdepasse = $this->input->post('motdepasse');
-		$hash = password_hash($motdepasse,PASSWORD_BCRYPT);
-		$personne->motdepasse = $hash;
+		$password = $this->input->post('password');
+		$hash = password_hash($password,PASSWORD_BCRYPT);
+		$utilisateur->password = $hash;
 
-		$id = R::store($personne);
+		$id = R::store($utilisateur);
 	}
 
-	public function update_personne($personne) {
+	public function update_utilisateur($utilisateur) {
 
-		$personne->nom = $this->input->post('nom');
-		$personne->prenom = $this->input->post('prenom');
-		$personne->id = $this->input->post('id');
-		if ($this->input->post('motdepasse') !== ""){
-			$motdepasse = $this->input->post('motdepasse');
-			$hash = password_hash($motdepasse,PASSWORD_BCRYPT);
-			$personne->motdepasse = $hash;
+		$utilisateur->login = $this->input->post('login');
+		if ($this->input->post('password') !== ""){
+			$password = $this->input->post('password');
+			$hash = password_hash($password,PASSWORD_BCRYPT);
+			$utilisateur->password = $hash;
 		}
-		R::store($personne);
+		R::store($utilisateur);
 	}
-	public function delete_personne($id) {
 
-		$personne = $this->get_personne($id);
-		R::trash($personne);
+	public function update_motdepasse($utilisateur) {
+
+		$password = $this->input->post('password');
+		$hash = password_hash($password,PASSWORD_BCRYPT);
+		$utilisateur->password = $hash;
+		
+		R::store($utilisateur);
+	}
+
+	public function delete_utilisateur($id) {
+
+		$utilisateur = $this->get_utilisateur($id);
+		R::trash($utilisateur);
 	}
 }

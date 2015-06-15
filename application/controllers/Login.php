@@ -53,7 +53,6 @@ class Login extends CI_Controller {
 			redirect(site_url('login'));
 		}
 	}
-
 	
 	public function logout(){
 
@@ -80,5 +79,30 @@ class Login extends CI_Controller {
 			$test = true;
 		}
 		return $test;
+	}
+
+	public function modifier($login) {
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$this->load->model('Utilisateur_model');
+
+		$this->form_validation->set_rules('password', 'mot de passe', 'trim|required|matches[password2]');
+		$this->form_validation->set_rules('password2', 'confirmation du mot de passe', 'trim|required');
+
+
+		$data['title'] = 'Modifier le mot de passe';
+        $utilisateur = $this->Utilisateur_model->get_utilisateur($login);
+        $data['utilisateur'] = $utilisateur;
+
+		if ($this->form_validation->run() === FALSE)
+		{
+			$this->load->view('login/modifier', $data);
+		}
+		else
+		{
+			$this->Utilisateur_model->update_motdepasse($utilisateur);
+			redirect(site_url('projet'));
+		}
 	}
 }
