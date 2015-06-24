@@ -19,7 +19,7 @@ class Personne_model extends CI_Model {
 
 	public function search_personne($nomPersonne) {
 		
-		$personne = R::find( 'personne', ' nom LIKE :nomPersonne ', [ ':nomPersonne'=>'%'.$nomPersonne.'%' ] );
+		$personne = R::find( 'personne', ' nom LIKE :nomPersonne OR prenom LIKE :nomPersonne', [ ':nomPersonne'=>'%'.$nomPersonne.'%' ] );
 
 		return $personne;
 	}
