@@ -10,6 +10,9 @@
     <label for="description">Description de la tache</label>
     <textarea name="description"></textarea><br/>
 
+    <label for="duree">Durée de la tache (en jours)</label>
+    <input type="input" name="duree"></input><br/>
+
     <input type="submit" name="submit" value="Créer la tache" />
 
 </form>

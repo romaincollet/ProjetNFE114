@@ -33,6 +33,8 @@ class Tache extends CI_Controller {
 		$data['title'] = 'Créer une nouvelle tache';
 
 		$this->form_validation->set_rules('nom', 'nom de la tache', 'required');
+		$this->form_validation->set_rules('description', 'description', 'required');
+		$this->form_validation->set_rules('duree', 'duree', 'required');
 
 		if ($this->form_validation->run() === FALSE)
 		{
@@ -56,6 +58,7 @@ class Tache extends CI_Controller {
 
 		$this->form_validation->set_rules('nom', 'nom', 'required');
 		$this->form_validation->set_rules('description', 'description', 'required');
+		$this->form_validation->set_rules('duree', 'duree', 'required');
 
 		if ($this->form_validation->run() === FALSE)
 		{

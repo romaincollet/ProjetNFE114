@@ -25,6 +25,7 @@ class Tache_model extends CI_Model {
 
 		$tache->nom = $this->input->post('nom');
 		$tache->description = $this->input->post('description');
+		$tache->duree = $this->input->post('duree');
 
 		$id = R::store( $tache );
 	}
@@ -33,6 +34,7 @@ class Tache_model extends CI_Model {
 
 		$tache->nom = $this->input->post('nom');
 		$tache->description = $this->input->post('description');
+		$tache->duree = $this->input->post('duree');
 
 		R::store($tache);
 	}
@@ -40,5 +42,12 @@ class Tache_model extends CI_Model {
 
 		$tache = $this->get_tache($id);
 		R::trash($tache);
+	}
+
+	public function get_liste_tache($idProjet, $idtTache) {
+
+		$taches = R::find( 'tache', 'projet_id = ? AND id <> ?', [$idProjet , $idtTache] ); 
+
+		return $taches;
 	}
 }

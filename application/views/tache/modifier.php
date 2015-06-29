@@ -9,6 +9,9 @@
     <label for="description">Description</label>
     <textarea name="description" ><?php echo $tache->description; ?></textarea><br/>
 
+    <label for="duree">Durée de la tache (en jours)</label>
+    <input type="input" name="duree"><?php echo $tache->duree; ?></input><br/>
+
     <input type="submit" name="submit" value="Valider les modifications" />
 
 </form>

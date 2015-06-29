@@ -9,7 +9,7 @@ $route['projet'] = 'projet';
 $route['projet/nouveau'] = 'projet/nouveau';
 $route['projet/recherche'] = 'projet/recherche';
 $route['projet/modifier'] = 'projet/modifier';
-$route['projet/supprimer/(:any)'] = 'projet/supprimer/$1';
+$route['projet/supprimer'] = 'projet/supprimer';
 $route['projet/listeTache'] = 'projet/listeTache';
 $route['projet/ajouterTache'] = 'projet/ajouterTache';
 $route['projet/retirerTache'] = 'projet/retirerTache';
@@ -22,14 +22,14 @@ $route['projet/(:any)'] = 'projet/view/$1';
 $route['tache'] = 'tache';
 $route['tache/nouveau'] = 'tache/nouveau';
 $route['tache/modifier'] = 'tache/modifier';
-$route['tache/supprimer/(:any)'] = 'tache/supprimer/$1';
+$route['tache/supprimer'] = 'tache/supprimer';
 $route['tache/(:any)'] = 'tache/view/$1';
 
 $route['personne'] = 'personne';
 $route['personne/nouveau'] = 'personne/nouveau';
 $route['personne/recherche'] = 'personne/recherche';
 $route['personne/modifier'] = 'personne/modifier';
-$route['personne/supprimer/(:any)'] = 'personne/supprimer/$1';
+$route['personne/supprimer'] = 'personne/supprimer';
 $route['personne/(:any)'] = 'personne/view/$1';
 
 $route['default_controller'] = 'login';
