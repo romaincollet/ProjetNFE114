@@ -11,6 +11,6 @@
 	<?php endforeach ?>
 
 </select>
-<input type="submit" name="submit" value="Ajouter l'équipier" />
+<input type="submit" name="submit" value="Ajouter la tache" />
 <?php echo form_close(); ?>
 <p><a href="<?php echo site_url('projet/'.$projet->id) ?>">Retour</a></p>

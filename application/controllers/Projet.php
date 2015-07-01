@@ -5,6 +5,7 @@ class Projet extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('Projet_model');
+        $this->load->model('Tache_model');
     }
 
     public function index() {
@@ -70,19 +71,35 @@ class Projet extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
-            $this->title = "Modifier un projet";
             $this->load->view('projet/modifier', $data);
         }
         else
         {
             $this->Projet_model->update_projet($projet);
-            redirect(site_url('projet'));
+            redirect(site_url('projet/'.$id));
         }
     }
 
     public function supprimer($id) {
-        $this->Projet_model->delete_projet($id);
-        redirect(site_url('projet'));
+
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Supprimer le projet';
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
+
+        $this->form_validation->set_rules('check', 'check', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('projet/supprimer', $data);
+        }
+        else
+        {
+            $this->Projet_model->delete_projet($id);
+            redirect(site_url('projet'));
+        }
     }
 
     public function listeTache($id) {
@@ -100,13 +117,12 @@ class Projet extends CI_Controller {
     public function ajouterTache($id) {
         $this->load->helper('form');
         $this->load->library('form_validation');
-        $this->load->model('Tache_model');
 
         $data['title'] = 'Ajouter une tache au projet';
         $projet = $this->Projet_model->get_projet($id);
         $data['projet'] = $projet;
 
-        $taches = $this->Tache_model->get_tache();
+        $taches = $this->Tache_model->get_tache_sans_projet();
         $data['taches'] = $taches;
     
         $this->form_validation->set_rules('tache', 'tache', 'required');
@@ -119,13 +135,15 @@ class Projet extends CI_Controller {
         else
         {
             $this->Projet_model->ajouter_tache($projet);
-            redirect(site_url('projet'));
+            redirect(site_url('projet/listeTache/'.$id));
         }
     }
 
     public function retirerTache($id) {
+        $tache = $this->Tache_model->get_tache($id);
+
         $this->Projet_model->retirer_tache($id);
-        redirect(site_url('projet'));
+        redirect(site_url('projet/'.$tache->projet_id));
     }
 
     public function listeEquipier($id) {
@@ -141,6 +159,7 @@ class Projet extends CI_Controller {
     }
 
     public function ajouterEquipier($id) {
+
         $this->load->library('form_validation');
         $this->load->model('Personne_model');
 
@@ -148,7 +167,7 @@ class Projet extends CI_Controller {
         $data['projet'] = $projet;
 
         $data['title'] = 'Ajouter un équipier';
-        $personnes = $this->Personne_model->get_personne();
+        $personnes = $this->Personne_model->get_personne_sans_projet();
         $data['personnes'] = $personnes;
 
         $this->form_validation->set_rules('equipier', 'equipier', 'required');
@@ -160,13 +179,17 @@ class Projet extends CI_Controller {
         else
         {
             $this->Projet_model->ajouter_equipier($projet);
-            redirect(site_url('projet'));
+            redirect(site_url('projet/listeEquipier/'.$id));
         }
     }
 
     public function retirerEquipier($id) {
+        $this->load->model('Personne_model');
+
+        $personne = $this->Personne_model->get_personne($id);
+
         $this->Projet_model->retirer_equipier($id);
-        redirect(site_url('projet'));
+        redirect(site_url('projet/listeEquipier/'.$personne->projet_id));
     }
 
     public function affecterEquipier($id) {
@@ -190,7 +213,7 @@ class Projet extends CI_Controller {
         else
         {
             $this->Projet_model->affecter_equipier($projet);
-            redirect(site_url('projet'));
+            redirect(site_url('projet/'.$id));
         }
     }
 }

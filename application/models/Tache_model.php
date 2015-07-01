@@ -18,6 +18,15 @@ class Tache_model extends CI_Model {
 
 		return $taches;
 	}
+
+	public function get_tache_sans_projet($id = FALSE)
+	{
+		
+		$taches = R::find( 'tache', ' projet_id IS NULL' );
+		
+
+		return $taches;
+	}
 	
 	public function set_tache() {
 

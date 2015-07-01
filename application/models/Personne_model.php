@@ -17,6 +17,13 @@ class Personne_model extends CI_Model {
 		return $personne;
 	}
 
+	public function get_personne_sans_projet($id = FALSE) {
+		
+		$taches = R::find( 'personne', ' projet_id IS NULL' );
+
+		return $taches;
+	}
+
 	public function search_personne($nomPersonne) {
 		
 		$personne = R::find( 'personne', ' nom LIKE :nomPersonne OR prenom LIKE :nomPersonne', [ ':nomPersonne'=>'%'.$nomPersonne.'%' ] );
