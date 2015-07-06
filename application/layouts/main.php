@@ -3,22 +3,21 @@
 	<title>{{TITLE}}</title>
 </head>
 <body>
+	<h1>Application de gestion de projet</h1>
 	<?php 
 		$this->load->library('session');
 
 	if ($this->session->logged_in === true): ?>
+
 	<div style="float:right;">
 		<a href="<?php echo site_url('login/logout'); ?>">Déconnexion</a><br/>
 		<a href="<?php echo site_url('login/modifier/'. $this->session->login); ?>">Modifier le mot de passse</a>
 	</div>
-	<?php endif; ?>
-
 	<div style="text-align: left;">
-		<h1>Application de gestion de projet</h1>
 		<ul>
-			<li><a href="<?php echo site_url('projet'); ?>">Projets</a></li>
+			<li><a href="<?php echo site_url('projet'); ?>">Liste des projets</a></li>
 			<li><a href="<?php echo site_url('projet/nouveau'); ?>">Nouveau projet</a></li>
-			<li><a href="<?php echo site_url('personne'); ?>">Afficher les personnes</a></li>
+			<li><a href="<?php echo site_url('personne'); ?>">Liste des personnes</a></li>
 		</ul>
 	</div>
 	<div>
@@ -37,6 +36,7 @@
 		<input type="submit" name="submit" value="Rechercher une personne" />
 		<?php echo form_close() ?>
 	</div>
+	<?php endif; ?>
 	<hr/>
 	{{BODY}}
 	<hr/>

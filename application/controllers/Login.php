@@ -37,6 +37,7 @@ class Login extends CI_Controller {
 		}
 		elseif ($this->form_validation->run() === FALSE)
 		{
+			$this->title = "Login";
 			$this->load->view('login');
 		}
 		elseif($this->verification()) 
@@ -97,6 +98,7 @@ class Login extends CI_Controller {
 
 		if ($this->form_validation->run() === FALSE)
 		{
+			$this->title = "Modifier le mot de passe";
 			$this->load->view('login/modifier', $data);
 		}
 		else

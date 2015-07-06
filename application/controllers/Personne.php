@@ -10,19 +10,17 @@ class Personne extends CI_Controller {
         $data['personnes'] = $this->Personne_model->get_personne();
         $data['title'] = "Liste des personnes";
 
+        $this->title = "Liste des personnes";
         $this->load->view('personne/index', $data);
         
     }
 
-    public function view($id = NULL)
+    public function view($id)
     {
-        $data['personne'] = $this->Personne_model->get_personne($id);
-        
-        if (empty($data['personne']))
-        {
-            show_404();
-        }
+        $personne = $this->Personne_model->get_personne($id);
+        $data['personne'] = $personne;
 
+        $this->title = $personne->prenom . " " . $personne->nom;
         $this->load->view('personne/view', $data);
     }
 
@@ -59,7 +57,7 @@ class Personne extends CI_Controller {
     	$this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['title'] = 'Modifier une personne';
+        $data['title'] = 'Modifier la personne';
         $personne = $this->Personne_model->get_personne($id);
         $data['personne'] = $personne;
 
@@ -68,7 +66,7 @@ class Personne extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
-            $this->title = "Modifier d'une personne";
+            $this->title = "Modifier la personne";
             $this->load->view('personne/modifier', $data);
         }
         else

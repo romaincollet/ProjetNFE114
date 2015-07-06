@@ -46,4 +46,28 @@ class Tache_model extends CI_Model {
 		$tache = $this->get_tache($id);
 		R::trash($tache);
 	}
+
+	public function affecter_equipier($tache){
+
+		$this->load->model('Personne_model');
+
+		$equipier = $this->Personne_model->get_personne($this->input->post('equipier'));
+
+		$equipier->sharedAffectationList[] = $tache;
+		$tache->sharedAffectationList[] = $equipier;
+        R::storeAll([$equipier,$tache]);
+	}
+
+	public function desaffecter_equipier($id){
+
+		$this->load->model('Personne_model');
+
+		$equipier = $this->Personne_model->get_personne($this->input->post('equipier'));
+
+		$equipier->sharedAffectationList[] = $tache;
+		$tache->sharedAffectationList[] = $equipier;
+        R::storeAll([$equipier,$tache]);
+	}
+
+
 }

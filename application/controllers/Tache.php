@@ -1,25 +1,44 @@
 <?php
 class Tache extends CI_Controller {
 
-	public function __construct()
-	{
+	public function __construct() {
+
 		parent::__construct();
 		$this->load->model('Tache_model');
 	}
 
-	public function view($id = NULL)
-	{
-		$data['tache'] = $this->Tache_model->get_tache($id);
+	public function view($id) {
 
-		if (empty($data['tache']))
-		{
-			show_404();
-		}
+		$this->load->library('form_validation');
+		$this->load->model('Projet_model');
 
-		$this->load->view('tache/view', $data);
+		$tache = $this->Tache_model->get_tache($id);
+		$data['tache'] = $tache;
+		$data['equipiers'] = $tache->sharedPersonneList;
+
+        $projet = $this->Projet_model->get_projet($tache->projet_id);
+
+        $data['equipiersDispo'] = $projet->ownPersonneList;
+
+        $this->form_validation->set_rules('equipier', 'equipier', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+        	$this->title = $tache->nom;
+            $this->load->view('tache/view', $data);
+        }
+        else
+        {
+            $this->Tache_model->affecter_equipier($tache);
+            $tache = $tache->fresh();
+			$data['tache'] = $tache;
+			$data['equipiers'] = $tache->sharedPersonneList;
+            $this->load->view('tache/view', $data);
+        }
 	}
 
 	public function nouveau($idProjet) {
+
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->model('Projet_model');
@@ -46,6 +65,7 @@ class Tache extends CI_Controller {
 	}
 
 	public function modifier($id) {
+
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 

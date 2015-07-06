@@ -9,4 +9,4 @@
     <input type="submit" name="submit" value="Supprimer la tache" />
 
 </form>
-<p><a href="<?php echo site_url('projet/listeTache/'.$tache->projet_id) ?>">Annuler</a></p>
+<p><a href="<?php echo site_url('tache/'.$tache->id) ?>">Annuler</a></p>

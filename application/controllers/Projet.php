@@ -13,19 +13,17 @@ class Projet extends CI_Controller {
         $data['projets'] = $this->Projet_model->get_projet();
         $data['title'] = "Liste des projets";
 
+        $this->title = "Liste des projets";
         $this->load->view('projet/index', $data);
         
     }
 
-    public function view($id = NULL)
+    public function view($id)
     {
-        $data['projet'] = $this->Projet_model->get_projet($id);
-        
-        if (empty($data['projet']))
-        {
-            show_404();
-        }
+        $projet = $this->Projet_model->get_projet($id);
+        $data['projet'] = $projet;
 
+        $this->title = $projet->nom;
         $this->load->view('projet/view', $data);
     }
 
@@ -62,7 +60,7 @@ class Projet extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('form_validation');
 
-        $data['title'] = 'Modifier un projet';
+        $data['title'] = 'Modifier le projet';
         $projet = $this->Projet_model->get_projet($id);
         $data['projet'] = $projet;
 
@@ -71,6 +69,7 @@ class Projet extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
+            $this->title = "Modifier le projet";
             $this->load->view('projet/modifier', $data);
         }
         else
@@ -93,6 +92,7 @@ class Projet extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
+            $this->title = "Supprimer le projet";
             $this->load->view('projet/supprimer', $data);
         }
         else
@@ -111,6 +111,7 @@ class Projet extends CI_Controller {
         $taches = $projet->ownTacheList;
         $data['taches'] = $taches;
 
+        $this->title = "Liste des taches";
         $this->load->view('projet/listeTache', $data);
     }
 
@@ -123,6 +124,7 @@ class Projet extends CI_Controller {
         $equipiers = $projet->ownPersonneList;
         $data['equipiers'] = $equipiers;
 
+        $this->title = "Liste des équipiers";
         $this->load->view('projet/listeEquipier', $data);
     }
 
@@ -142,6 +144,7 @@ class Projet extends CI_Controller {
 
         if ($this->form_validation->run() === FALSE)
         {
+            $this->title = "Ajouter un équipier";
             $this->load->view('projet/ajouterEquipier', $data);
         }
         else
