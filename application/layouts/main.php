@@ -18,7 +18,6 @@
 		<ul>
 			<li><a href="<?php echo site_url('projet'); ?>">Projets</a></li>
 			<li><a href="<?php echo site_url('projet/nouveau'); ?>">Nouveau projet</a></li>
-			<li><a href="<?php echo site_url('tache'); ?>">Afficher les taches</a></li>
 			<li><a href="<?php echo site_url('personne'); ?>">Afficher les personnes</a></li>
 		</ul>
 	</div>

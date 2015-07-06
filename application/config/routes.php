@@ -19,7 +19,6 @@ $route['projet/ajouterEquipier'] = 'projet/ajouterEquipier';
 $route['projet/retirerEquipier'] = 'projet/retirerEquipier';
 $route['projet/(:any)'] = 'projet/view/$1';
 
-$route['tache'] = 'tache';
 $route['tache/nouveau'] = 'tache/nouveau';
 $route['tache/modifier'] = 'tache/modifier';
 $route['tache/supprimer'] = 'tache/supprimer';

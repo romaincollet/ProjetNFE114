@@ -114,38 +114,6 @@ class Projet extends CI_Controller {
         $this->load->view('projet/listeTache', $data);
     }
 
-    public function ajouterTache($id) {
-        $this->load->helper('form');
-        $this->load->library('form_validation');
-
-        $data['title'] = 'Ajouter une tache au projet';
-        $projet = $this->Projet_model->get_projet($id);
-        $data['projet'] = $projet;
-
-        $taches = $this->Tache_model->get_tache_sans_projet();
-        $data['taches'] = $taches;
-    
-        $this->form_validation->set_rules('tache', 'tache', 'required');
-
-        if ($this->form_validation->run() === FALSE)
-        {
-            $this->title = "Ajouter une tache au projet";
-            $this->load->view('projet/ajouterTache', $data);
-        }
-        else
-        {
-            $this->Projet_model->ajouter_tache($projet);
-            redirect(site_url('projet/listeTache/'.$id));
-        }
-    }
-
-    public function retirerTache($id) {
-        $tache = $this->Tache_model->get_tache($id);
-
-        $this->Projet_model->retirer_tache($id);
-        redirect(site_url('projet/'.$tache->projet_id));
-    }
-
     public function listeEquipier($id) {
 
         $data['title'] = 'Liste des équipiers';

@@ -10,8 +10,10 @@
     <textarea name="description" ><?php echo $tache->description; ?></textarea><br/>
 
     <label for="duree">Durée de la tache (en jours)</label>
-    <input type="input" name="duree"><?php echo $tache->duree; ?></input><br/>
+    <input type="input" name="duree" value="<?php echo $tache->duree; ?>" /><br/>
 
     <input type="submit" name="submit" value="Valider les modifications" />
 
 </form>
+
+<p><a href="<?php echo site_url('projet/listeTache/'.$tache->projet_id) ?>">Annuler</a></p>

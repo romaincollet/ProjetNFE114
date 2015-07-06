@@ -18,17 +18,8 @@ class Tache_model extends CI_Model {
 
 		return $taches;
 	}
-
-	public function get_tache_sans_projet($id = FALSE)
-	{
-		
-		$taches = R::find( 'tache', ' projet_id IS NULL' );
-		
-
-		return $taches;
-	}
 	
-	public function set_tache() {
+	public function set_tache($projet) {
 
 		$tache = R::dispense('tache');
 
@@ -36,7 +27,10 @@ class Tache_model extends CI_Model {
 		$tache->description = $this->input->post('description');
 		$tache->duree = $this->input->post('duree');
 
+		$projet->ownTacheList[] = $tache;
+
 		$id = R::store( $tache );
+		R::store($projet);
 	}
 
 	public function update_tache($tache) {
@@ -51,12 +45,5 @@ class Tache_model extends CI_Model {
 
 		$tache = $this->get_tache($id);
 		R::trash($tache);
-	}
-
-	public function get_liste_tache($idProjet, $idtTache) {
-
-		$taches = R::find( 'tache', 'projet_id = ? AND id <> ?', [$idProjet , $idtTache] ); 
-
-		return $taches;
 	}
 }

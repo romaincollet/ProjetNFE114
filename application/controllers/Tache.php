@@ -7,13 +7,6 @@ class Tache extends CI_Controller {
 		$this->load->model('Tache_model');
 	}
 
-	public function index() {
-		$data['taches'] = $this->Tache_model->get_tache();
-		$data['title'] = "Liste des taches";
-
-		$this->load->view('tache/index', $data);
-	}
-
 	public function view($id = NULL)
 	{
 		$data['tache'] = $this->Tache_model->get_tache($id);
@@ -26,11 +19,15 @@ class Tache extends CI_Controller {
 		$this->load->view('tache/view', $data);
 	}
 
-	public function nouveau() {
+	public function nouveau($idProjet) {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->model('Projet_model');
 
 		$data['title'] = 'Créer une nouvelle tache';
+
+		$projet = $this->Projet_model->get_projet($idProjet);
+        $data['projet'] = $projet;
 
 		$this->form_validation->set_rules('nom', 'nom de la tache', 'required');
 		$this->form_validation->set_rules('description', 'description', 'required');
@@ -43,8 +40,8 @@ class Tache extends CI_Controller {
 		}
 		else
 		{
-			$this->Tache_model->set_tache();
-			redirect(site_url('tache'));
+			$this->Tache_model->set_tache($projet);
+			redirect(site_url('projet/listeTache/'.$idProjet));
 		}
 	}
 
@@ -68,12 +65,29 @@ class Tache extends CI_Controller {
 		else
 		{
 			$this->Tache_model->update_tache($tache);
-			redirect(site_url('tache'));
+			redirect(site_url('projet/listeTache/'.$tache->projet_id));
 		}
 	}
 
 	public function supprimer($id) {
-		$this->Tache_model->delete_tache($id);
-		redirect(site_url('tache'));
+
+		$this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Supprimer la tache';
+        $tache = $this->Tache_model->get_tache($id);
+        $data['tache'] = $tache;
+
+        $this->form_validation->set_rules('check', 'check', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('tache/supprimer', $data);
+        }
+        else
+        {
+            $this->Tache_model->delete_tache($id);
+            redirect(site_url('projet/listeTache/'.$tache->projet_id));
+        }
 	}
 }
